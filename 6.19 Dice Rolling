@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+#define SIZE 36000
+
+int main(void)
+{
+  int die1[SIZE];
+  int die2[SIZE];
+  int sum[SIZE];
+  size_t i, j;
+  int freq[13];
+
+  for(i = 0; i < SIZE; i++){
+    die1[i] = rand()%6 + 1;
+    die2[i] = rand()%6 + 1;
+    sum[i] = die1[i] + die2[i];
+    ++freq[sum[i]];
+
+  }
+
+  for (j = 2; j< 13; j++){
+    printf("%d%10d\n", j, freq[j] );
+  }
+
+return 0;
+
+
+}
