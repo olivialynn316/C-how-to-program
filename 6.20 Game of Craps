@@ -1,0 +1,86 @@
+/6.20 game of craps/
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
+enum Status{ CONTINUE, WON, LOST};
+
+int roll(void);
+int main(void)
+{
+
+    srand(time(NULL));
+    int wintimes[SIZE] = {0};
+    int losetimes[SIZE] = {0};
+    int contimes[SIZE] = {0};
+    int sum;
+    int mypoint;
+    enum Status gamestatus;
+    int i;
+    int freq[21] = {0};
+    int n;
+    int winsum = 0;
+    double winrate;
+    int time_a, time_b;
+
+    for(i = 0; i< SIZE; i++){
+        sum = roll();
+        switch(sum){
+            case 7:
+            case 11:
+                gamestatus = WON;
+                wintimes[i]++;
+                break;
+            case 2:
+            case 3:
+            case 12:
+                gamestatus = LOST;
+                losetimes[i]++;
+                break;
+            default:
+                gamestatus = CONTINUE;
+                mypoint = sum;
+                break;
+        }
+        while( gamestatus == CONTINUE){
+            sum = roll();
+            contimes[i]++;
+            if(sum == mypoint){
+                gamestatus = WON;
+                wintimes[i] = wintimes[i]+contimes[i];
+            }else if(sum == 7){
+                gamestatus = LOST;
+                losetimes[i] = wintimes[i] + contimes[i];
+            }
+        }
+
+
+        for(n = 1; n< 21; n++){
+            if(n ==wintimes[i] ){
+            freq[n]++;
+             }
+        }
+    }
+
+    for(n = 1; n< 21; n++){
+       winsum+=freq[n];
+       printf("%d games are won on the %d roll:\n", freq[n], n);
+    }
+    printf("The win times is %d in total, the win rate is %.2lf", winsum, (double)winsum/SIZE);
+}
+
+
+
+int roll(void){
+   int die1;
+   int die2;
+   int worksum;
+
+    die1= rand()%6 +1;
+    die2 = rand()%6 + 1;
+    worksum = die1 + die2;
+
+
+   return worksum;
+}
