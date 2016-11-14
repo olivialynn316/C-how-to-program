@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
+int ask(void);
+int main(void)
+{
+    srand(time(NULL));
+    int seat[10]={0};
+    int seattype;
+    int freq_1 = 0, freq_2 = 0;
+    int i,j;
+    int r_1, r_2;
+
+    for(i=0; i<5; i++){
+        if(seat[i]==0){
+            freq_1++;
+        }
+    }
+    for(j=5; j<10; j++){
+        if(seat[i]==0){
+            freq_2++;
+        }
+    }
+
+    while(1){
+    printf("Please type 1 for first class\n");
+    printf("Please type 2 for economic class\n");
+    scanf("%d", &seattype);
+
+    if(seattype==1){
+        while(freq_1>0){
+            r_1 = rand()%5;
+            if(seat[r_1]==0){
+                printf("Your seat number is %d, first class.\n", r_1+1);
+                seat[r_1]=1;
+                freq_1--;
+                break;
+            }
+            else{
+                continue;
+            }
+
+        }
+        while(freq_1==0){
+            if(ask()==0){
+               printf("The next flight is in 3 hours.\n");
+               break;
+            }
+            else{
+                break;
+            }
+        }
+    }
+
+    else if(seattype==2){
+        while(freq_2>0){
+            r_2 = rand()%5+5;
+            if(seat[r_2]==0){
+                printf("Your seat number is %d, economic class.\n", r_2+1);
+                seat[r_2]=1;
+                freq_2--;
+                break;
+            }
+            else{
+                continue;
+            }
+        }
+        while(freq_2==0){
+            if(ask()==0){
+               printf("The next flight is in 3 hours.\n");
+               break;
+            }
+            else{
+                break;
+            }
+
+        }
+    }
+    if(freq_1==0 &&freq_2 ==0){
+        printf("We run out of tickets.\n");
+        break;
+    }
+
+
+   }
+   return 0;
+}
+int ask(void){
+    int choice;
+    printf("Do you want change to another seat type? 0 for no, 1 for yes:\n");
+    scanf("%d", &choice );
+    if(choice==1){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
