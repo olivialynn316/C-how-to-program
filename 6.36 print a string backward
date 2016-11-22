@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+void printString(char str[], unsigned int n);
+
+int main()
+{
+   int n;
+   printf("Enter the string length: ");
+   scanf("%d", &n);
+   char str[n];
+   printf("Enter the string(with %d letters):\n", n-1);
+   scanf("%s", &str);
+   printString(str, n);
+
+   return 0;
+}
+
+void printString(char str[], unsigned int n){
+   if(n<=0){
+    n=0;
+   }
+
+   else{
+    printf("%c", str[n-1]);
+    printString(str, n-1);
+   }
+
+}
