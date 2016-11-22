@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+void printHalfArray(int array[], int size, int halfsize);
+
+int main()
+{
+   while(1){
+   int n;
+
+   int i;
+   printf("\nEnter the number of elements in array:(Enter 0 to exit)");
+   scanf("%d", &n);
+   int array[n];
+   if(n==0){
+    break;
+   }
+
+   for(i=0; i<n; i++){
+   printf("Enter elements in array:");
+   scanf("%d", &array[i]);
+   }
+   printHalfArray(array, n, n/2);
+   }
+   return 0;
+
+}
+
+void printHalfArray(int array[], int size,int halfsize){
+
+   if(size<=halfsize){
+      size = 0;
+   }
+   else{
+    printf("%d  ", array[size-1]);
+    printHalfArray(array, size-1, halfsize);
+   }
+
+}
