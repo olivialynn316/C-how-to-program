@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+
+void swap_int(void);
+void swap_float(void);
+
+int main(){
+   void (*swap[2])(void)={swap_int, swap_float};
+
+   int choice;
+   printf("Enter 0 to swap two integers or 1 to swap two float numbers:");
+   scanf("%d", &choice);
+
+   (*swap[choice])();
+
+}
+void swap_int(void){
+   int a, b;
+   printf("Enter two integers:\n");
+   scanf("%d", &a);
+   scanf("%d", &b);
+
+   printf("%d  %d", b, a);
+}
+
+void swap_float(void){
+   float a, b;
+   printf("Enter two floating numbers:\n");
+   scanf("%f", &a);
+   scanf("%f", &b);
+
+   printf("%f  %f", b, a);
+}
