@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+void place(char maze[][13], int n, int row, int column);
+void move(char maze[][13], int *row, int *column);
+int getdir(char maze[][13],int a, int b);
+
+
+
+int main(void)
+{
+    char maze[12][13]={"############","#...#......#", "..#.#.####.#", "###.#....#.#", "#....###.#..", "####.#.#.#.#","#..#.#.#.#.#","##.#.#.#.#.#","#........#.#","######.###.#","#......#...#","############"};
+    int  r, c;
+    for(r=0; r<12; r++){
+        for(c=0; c<13; c++){
+            printf("%c", maze[r][c]);
+        }
+        printf("\n");
+    }
+
+
+   place(maze, 1, 4, 11);
+
+
+
+
+}
+void place(char maze[][13], int n, int row, int column){
+    if(row<0 || row >=12 || column<0 || column>=12 || maze[row][column] != '.' ){
+        //如果当前点已经在地图外面了，或者虽然在里面但是是死路，就gg
+        return;
+    }
+    char maze1[12][13]; //创一个新的maze1，只对接下来的情况有效
+    for(int r=0; r<12; r++){
+        for(int c=0; c<13; c++){
+            maze1[r][c] = maze[r][c];
+        }
+    }
+    maze1[row][column] = 'X';//走的通就标记下
+
+    if(row == 2 && column == 0){//成功了
+        printf("--------------------------------------------\n");
+        for(int r=0; r<12; r++){
+            for(int c=0; c<13; c++){
+                printf("%c", maze1[r][c]);
+            }
+            printf("\n");
+        }
+        printf("%d",n);
+        return;
+    }
+    //否则就四种情况全走一遍
+    place(maze1,n+1,row+1,column);
+    place(maze1,n+1,row-1,column);
+    place(maze1,n+1,row,column-1);
+    place(maze1,n+1,row,column+1);
+}
